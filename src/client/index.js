@@ -29,7 +29,7 @@ function initialState() {
   }
 }
 
-export function Client( options, callback ) {
+export function client( options, callback ) {
   options = Object.assign( {}, defaultOptions, options );
 
   const { routes, reducer, middleware } = options;
@@ -46,7 +46,7 @@ export function Client( options, callback ) {
   callback && callback( mount );
 }
 
-export default Client;
+export default client;
 
 export const Root = ({ routes, store }) => (
   <BrowserRouter>

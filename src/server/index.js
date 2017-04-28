@@ -8,7 +8,7 @@ const defaultOptions = {
   webpackConfig: {}
 };
 
-export function Server( options = {} ) {
+export function server( options = {} ) {
   options = Object.assign( {}, defaultOptions, options );
 
   const { routes, reducer, assets } = options;
@@ -32,4 +32,4 @@ export function Server( options = {} ) {
   });
 }
 
-export default Server;
+export default server;
