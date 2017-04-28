@@ -13,7 +13,7 @@ export function server( options = {} ) {
 
   const { routes, reducer, assets } = options;
 
-  console.log( "[oxygen-server] Starting..." );
+  console.log( "[exygen-server] Starting..." );
 
   const server = express();
 
@@ -28,7 +28,7 @@ export function server( options = {} ) {
   server.use( reactor( routes, reducer ) );
 
   server.listen( options.port, () => {
-    console.log( `[oxygen-server] Listening. (port=${ options.port })` );
+    console.log( `[exygen-server] Listening. (port=${ options.port })` );
   });
 }
 
