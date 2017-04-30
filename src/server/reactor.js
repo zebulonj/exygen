@@ -20,7 +20,7 @@ const middleware = [
 
 export function reactor( routes, reducer ) {
   return ( req, res ) => {
-    const store = createStore( reducer, {}, applyMiddleware( ...middleware ) );
+    const store = createStore( reducer, req.initialState, applyMiddleware( ...middleware ) );
 
     // TODO: Pre-fetch data for matched route.
     const handlers = routes

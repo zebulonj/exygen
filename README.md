@@ -30,7 +30,7 @@ export default routes;
 ```js
 import { combineReducers } from 'redux';
 
-import { todos } from './components/todos/reducer';
+import { todos } from './modules/todos/reducer';
 
 export default combineReducers({
   todos
