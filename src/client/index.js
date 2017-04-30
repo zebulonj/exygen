@@ -10,11 +10,13 @@ import { Provider } from 'react-redux';
 
 import { App } from '../app';
 
+export const defaultMiddleware = [
+  logger,
+  thunk
+];
+
 const defaultOptions = {
-  middleware: [
-    logger,
-    thunk
-  ]
+  middleware: defaultMiddleware
 };
 
 function initialState() {
@@ -34,7 +36,6 @@ export function client( options, callback ) {
 
   const { routes, reducer, middleware } = options;
 
-  console.log( "Initial State:", initialState() );
   const store = createStore( reducer, initialState(), applyMiddleware( ...middleware ) );
 
   function mount() {
