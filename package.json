@@ -21,6 +21,7 @@
   "homepage": "https://github.com/zebulonj/exygen#readme",
   "files": [
     "lib",
+    "boilerplate",
     "client.js",
     "server.js"
   ],
