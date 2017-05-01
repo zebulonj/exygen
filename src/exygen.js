@@ -11,7 +11,7 @@ const help = `
 
 const argv = minimist( process.argv.slice( 2 ) );
 const command = argv._[0];
-const target = argv._[1] || './test';
+const target = argv._[1] || './src';
 
 if ( command === 'init' && !( argv.help || argv.h ) ) {
   const boilerplateRoot = path.resolve( __dirname, '../boilerplate' );

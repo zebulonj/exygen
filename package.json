@@ -1,6 +1,6 @@
 {
   "name": "exygen",
-  "version": "0.1.0-alpha.9",
+  "version": "0.1.0-alpha.10",
   "description": "Not so much a framework, closer to boilerplate... but maintained and bundled with useful connectors.",
   "main": "client.js",
   "scripts": {
