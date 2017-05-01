@@ -1,9 +1,9 @@
-import Client from 'exygen/client';
+import client from 'exygen/client';
 
 import routes from './routes';
 import reducer from './reducer';
 
-Client({
+client({
   routes,
   reducer
 }, mount => {

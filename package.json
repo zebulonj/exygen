@@ -1,6 +1,6 @@
 {
   "name": "exygen",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "description": "Not so much a framework, closer to boilerplate... but maintained and bundled with useful connectors.",
   "main": "client.js",
   "scripts": {
@@ -28,6 +28,13 @@
   "bin": {
     "exygen": "./lib/exygen.js"
   },
+  "keywords": [
+    "react",
+    "redux",
+    "express",
+    "univeral javascript",
+    "boilerplate"
+  ],
   "dependencies": {
     "express": "^4.15.2",
     "minimist": "^1.2.0",

@@ -73,6 +73,10 @@ _This is an **incomplete setup**, but it gives you a good sense of the flavor of
 
 ## Features
 
+### Hot Module Replacement
+
+The `Exygen` connectors provide `webpack` and `React` hot-module-replacement out-of-box, in the development environment.
+
 ### Route Actions
 
 "Route Actions" are actions that are dispatched to the Redux store when a route matches. Their most important use is pre-fetching data based on routes, for server-side rendering. They are managed by the `Exygen` connectors, and fire on both server and client.
