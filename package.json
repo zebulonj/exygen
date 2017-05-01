@@ -14,7 +14,7 @@
     "url": "git+ssh://git@github.com/zebulonj/exygen.git"
   },
   "author": "Zebulon Young (zebulonj@gmail.com)",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zebulonj/exygen/issues"
   },
