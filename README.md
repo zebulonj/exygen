@@ -70,3 +70,57 @@ client({
 ```
 
 _This is an **incomplete setup**, but it gives you a good sense of the flavor of Exygen._
+
+## Features
+
+### Route Actions
+
+"Route Actions" are actions that are dispatched to the Redux store when a route matches. Their most important use is pre-fetching data based on routes, for server-side rendering. They are managed by the `Exygen` connectors, and fire on both server and client.
+
+**routes.js**
+```js
+import { Dashboard, TodoList } from './pages';
+import { fetchList } from './actions';
+
+export const routes = [
+  {
+    path: '/',
+    exact: true,
+    component: Dashboard
+  },
+  {
+    path: '/list/:listId',
+    component: TodoList,
+    fetch: ({ params }) => fetchList( params.listId )
+  }
+];
+
+export default routes;
+
+```
+
+**actions.js**
+```js
+export const fetchList = ( listId ) => {
+  return dispatch => {
+    dispatch({ type: 'LIST_REQUESTED', listId });
+
+    return fetch( `/api/lists/${ listId }` )
+      .then(
+        res => dispatch({ type: 'LIST_RECEIVED', list: res }),
+        err => dispatch({ type: 'LIST_ERROR' })
+      );
+  }
+}
+```
+
+### Boilerplate
+
+This project isn't simply boilerplate, but it does offer a quick starting point for your project.
+
+```shell
+npm install -g exygen
+exygen init
+```
+
+`Exygen` will install a minimal project template (directory structure and essential files) into the current working directory.

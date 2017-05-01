@@ -1,34 +1,35 @@
 {
   "name": "exygen",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "Not so much a framework, closer to boilerplate... but maintained and bundled with useful connectors.",
   "main": "client.js",
   "scripts": {
     "clean": "rm -rf ./lib",
     "build": "babel src --out-dir lib",
     "lint": "eslint --cache --quiet src",
-
     "prepublishOnly": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/zebulonj/exygen.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Zebulon Young (zebulonj@gmail.com)",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/zebulonj/exygen/issues"
   },
   "homepage": "https://github.com/zebulonj/exygen#readme",
-  "author": "Zebulon Young (zebulonj@gmail.com)",
-  "license": "UNLICENSED",
   "files": [
     "lib",
     "client.js",
     "server.js"
   ],
+  "bin": {
+    "exygen": "./lib/exygen.js"
+  },
   "dependencies": {
     "express": "^4.15.2",
+    "minimist": "^1.2.0",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
