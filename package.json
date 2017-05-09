@@ -1,6 +1,6 @@
 {
   "name": "exygen",
-  "version": "0.1.0-alpha.13",
+  "version": "0.1.0-alpha.14",
   "description": "Not so much a framework, closer to boilerplate... but maintained and bundled with useful connectors.",
   "main": "client.js",
   "scripts": {
@@ -57,6 +57,7 @@
     "babel-preset-stage-1": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^6.10.3",
+    "http-proxy-middleware": "^0.17.4",
     "react-hot-loader": "^3.0.0-beta.6",
     "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.10.2",

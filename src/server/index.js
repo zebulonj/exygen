@@ -1,4 +1,5 @@
 import express from 'express';
+import proxy from 'http-proxy-middleware';
 import thunk from 'redux-thunk';
 
 import webpack from './webpack';
@@ -23,14 +24,18 @@ function loadState( loader ) {
 export function server( options = {} ) {
   options = Object.assign( {}, defaultOptions, options );
 
-  const { routes, reducer, middleware, assets, initialState } = options;
+  const { routes, reducer, middleware, assets, initialState, webpackConfig } = options;
 
   console.log( "[exygen-server] Starting..." );
 
   const server = express();
 
   if ( process.env.NODE_ENV !== "production" ) {
-    server.use( webpack( options.webpackConfig ) );
+    server.use( webpack( webpackConfig ) );
+
+    const rules = ( ( webpackConfig.devServer || {} ).proxy || {} );
+
+    Object.keys( rules ).map( path => server.use( path, proxy( rules[path] ) ) );
   }
 
   if ( assets ) {
