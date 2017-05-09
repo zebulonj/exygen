@@ -14,7 +14,7 @@ const scripts = [
 ];
 
 export function reactor( routes, reducer, middleware = [] ) {
-  return ( req, res ) => {
+  return ( req, res, next ) => {
     const store = createStore( reducer, req.initialState, applyMiddleware( ...middleware ) );
 
     // TODO: Pre-fetch data for matched route.
@@ -25,22 +25,25 @@ export function reactor( routes, reducer, middleware = [] ) {
     const tasks = handlers.map( ({ match, route }) => store.dispatch( route.fetch( match ) ) );
 
     Promise.all( tasks )
-      .then( () => {
-        const state = store.getState();
-        const context = {};
-        const content = process.env.NODE_ENV === "production"
-          ? ReactDOMServer.renderToString(
-              <StaticRouter location={ req.url } context={ context }>
-                <Provider store={ store }>
-                  <App routes={ routes } />
-                </Provider>
-              </StaticRouter>
-            )
-          : '';
+      .then(
+        () => {
+          const state = store.getState();
+          const context = {};
+          const content = process.env.NODE_ENV === "production"
+            ? ReactDOMServer.renderToString(
+                <StaticRouter location={ req.url } context={ context }>
+                  <Provider store={ store }>
+                    <App routes={ routes } />
+                  </Provider>
+                </StaticRouter>
+              )
+            : '';
 
-        // TODO: Handle redirects.
-        res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content, state, scripts } ) ) );
-      });
+          // TODO: Handle redirects.
+          res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content, state, scripts } ) ) );
+        },
+        err => next( err )  // TODO: Better error handling (how to gracefully support error handling without prescribing application structure).
+      );
   }
 }
 
