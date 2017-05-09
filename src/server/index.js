@@ -31,11 +31,10 @@ export function server( options = {} ) {
   const server = express();
 
   if ( process.env.NODE_ENV !== "production" ) {
-    server.use( webpack( webpackConfig ) );
-
     const rules = ( ( webpackConfig.devServer || {} ).proxy || {} );
-
     Object.keys( rules ).map( path => server.use( path, proxy( rules[path] ) ) );
+
+    server.use( webpack( webpackConfig ) );
   }
 
   if ( assets ) {
