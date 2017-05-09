@@ -5,7 +5,6 @@ import { StaticRouter, matchPath } from 'react-router-dom';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 
 import { App } from '../app';
 import Document from './document';
@@ -14,11 +13,7 @@ const scripts = [
   '/bundle.js'
 ];
 
-const middleware = [
-  thunk
-];
-
-export function reactor( routes, reducer ) {
+export function reactor( routes, reducer, middleware = [] ) {
   return ( req, res ) => {
     const store = createStore( reducer, req.initialState, applyMiddleware( ...middleware ) );
 

@@ -1,4 +1,5 @@
 import express from 'express';
+import thunk from 'redux-thunk';
 
 import webpack from './webpack';
 import reactor from './reactor';
@@ -6,7 +7,10 @@ import reactor from './reactor';
 const defaultOptions = {
   port: 8080,
   webpackConfig: {},
-  initialState: {}
+  initialState: {},
+  middleware: [
+    thunk
+  ]
 };
 
 function loadState( loader ) {
@@ -19,7 +23,7 @@ function loadState( loader ) {
 export function server( options = {} ) {
   options = Object.assign( {}, defaultOptions, options );
 
-  const { routes, reducer, assets, initialState } = options;
+  const { routes, reducer, middleware, assets, initialState } = options;
 
   console.log( "[exygen-server] Starting..." );
 
@@ -33,7 +37,7 @@ export function server( options = {} ) {
     server.use( express.static( assets ) );
   }
 
-  server.use( loadState( initialState ), reactor( routes, reducer ) );
+  server.use( loadState( initialState ), reactor( routes, reducer, middleware ) );
 
   server.listen( options.port, () => {
     console.log( `[exygen-server] Listening. (port=${ options.port })` );
