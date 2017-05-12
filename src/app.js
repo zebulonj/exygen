@@ -13,6 +13,10 @@ App.propTypes = {
   routes: PropTypes.array
 };
 
+export const NullComponent = () => (
+  null
+);
+
 /**
  * Expands on the standard `Route` by exposing child routes via props.
  */
@@ -21,9 +25,13 @@ export const Route = ({ component, fetch, routes, ...route }) => (
 );
 
 Route.propTypes = {
-  component:  PropTypes.any,
+  component:  PropTypes.any.isRequired,
   fetch:      PropTypes.func,
   routes:     PropTypes.array
+};
+
+Route.defaultProps = {
+  component:  NullComponent
 };
 
 export class RouteNodeComponent extends Component {
