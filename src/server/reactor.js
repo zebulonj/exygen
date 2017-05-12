@@ -29,18 +29,20 @@ export function reactor( routes, reducer, middleware = [] ) {
         () => {
           const state = store.getState();
           const context = {};
-          const content = process.env.NODE_ENV === "production"
-            ? ReactDOMServer.renderToString(
-                <StaticRouter location={ req.url } context={ context }>
-                  <Provider store={ store }>
-                    <App routes={ routes } />
-                  </Provider>
-                </StaticRouter>
-              )
-            : '';
+          const content = ReactDOMServer.renderToString(
+            <StaticRouter location={ req.url } context={ context }>
+              <Provider store={ store }>
+                <App routes={ routes } />
+              </Provider>
+            </StaticRouter>
+          );
 
-          // TODO: Handle redirects.
-          res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content, state, scripts } ) ) );
+          if ( context.url ) {
+            res.redirect( context.url );
+          }
+          else {
+            res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content: process.env.NODE_ENV === "production" ? content : '', state, scripts } ) ) );
+          }
         },
         err => next( err )  // TODO: Better error handling (how to gracefully support error handling without prescribing application structure).
       );
