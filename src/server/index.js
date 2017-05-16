@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import proxy from 'http-proxy-middleware';
 import thunk from 'redux-thunk';
 
@@ -41,7 +42,7 @@ export function server( options = {} ) {
     server.use( express.static( assets ) );
   }
 
-  server.use( loadState( initialState ), reactor( routes, reducer, middleware ) );
+  server.use( cookieParser(), loadState( initialState ), reactor( routes, reducer, middleware ) );
 
   server.listen( options.port, () => {
     console.log( `[exygen-server] Listening. (port=${ options.port })` );
