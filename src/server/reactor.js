@@ -15,9 +15,7 @@ const scripts = [
 
 export function reactor( routes, reducer, middleware ) {
   return ( req, res, next ) => {
-    middleware = ( typeof middleware === 'function' ) ? middleware( req ) : middleware;
-    
-    const store = createStore( reducer, req.initialState, applyMiddleware( ...middleware ) );
+    const store = createStore( reducer, req.initialState, applyMiddleware( ...( ( typeof middleware === 'function' ) ? middleware( req ) : middleware ) ) );
 
     // TODO: Pre-fetch data for matched route.
     const handlers = routes
