@@ -13,8 +13,10 @@ const scripts = [
   '/bundle.js'
 ];
 
-export function reactor( routes, reducer, middleware = [] ) {
+export function reactor( routes, reducer, middleware ) {
   return ( req, res, next ) => {
+    middleware = ( typeof middleware === 'function' ) ? middleware( req ) : middleware;
+    
     const store = createStore( reducer, req.initialState, applyMiddleware( ...middleware ) );
 
     // TODO: Pre-fetch data for matched route.

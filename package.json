@@ -1,6 +1,6 @@
 {
   "name": "exygen",
-  "version": "0.1.0-alpha.16",
+  "version": "0.1.0-alpha.17",
   "description": "Not so much a framework, closer to boilerplate... but maintained and bundled with useful connectors.",
   "main": "client.js",
   "scripts": {
@@ -36,7 +36,6 @@
     "boilerplate"
   ],
   "dependencies": {
-    "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
     "minimist": "^1.2.0",
     "prop-types": "^15.5.8",
