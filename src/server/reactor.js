@@ -25,25 +25,29 @@ export function reactor( routes, reducer, middleware ) {
     const tasks = handlers.map( ({ match, route }) => store.dispatch( route.fetch( match ) ) );
 
     Promise.all( tasks )
-      .then(
-        () => {
-          const state = store.getState();
-          const context = {};
-          const content = ReactDOMServer.renderToString(
-            <StaticRouter location={ req.url } context={ context }>
-              <Provider store={ store }>
-                <App routes={ routes } />
-              </Provider>
-            </StaticRouter>
-          );
+      .then( () => {
+        const state = store.getState();
 
-          if ( context.url ) {
-            res.redirect( context.url );
-          }
-          else {
-            res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content: process.env.NODE_ENV === "production" ? content : '', state, scripts } ) ) );
-          }
-        },
+        // Expose state object for debugging.
+        res.state = state;
+
+        const context = {};
+        const content = ReactDOMServer.renderToString(
+          <StaticRouter location={ req.url } context={ context }>
+            <Provider store={ store }>
+              <App routes={ routes } />
+            </Provider>
+          </StaticRouter>
+        );
+
+        if ( context.url ) {
+          res.redirect( context.url );
+        }
+        else {
+          res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content: process.env.NODE_ENV === "production" ? content : '', state, scripts } ) ) );
+        }
+      })
+      .catch(
         err => next( err )  // TODO: Better error handling (how to gracefully support error handling without prescribing application structure).
       );
   }
