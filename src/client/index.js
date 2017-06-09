@@ -34,12 +34,12 @@ function initialState() {
 export function client( options, callback ) {
   options = Object.assign( {}, defaultOptions, options );
 
-  const { routes, reducer, middleware } = options;
+  const { Wrapper, routes, reducer, middleware } = options;
 
   const store = createStore( reducer, initialState(), applyMiddleware( ...middleware ) );
 
   function mount() {
-    ReactDOM.render( React.createElement( Root, { routes, store }), document.getElementById( 'content' ) );
+    ReactDOM.render( React.createElement( Root, { Wrapper, routes, store }), document.getElementById( 'content' ) );
   }
 
   mount();
@@ -49,10 +49,10 @@ export function client( options, callback ) {
 
 export default client;
 
-export const Root = ({ routes, store }) => (
+export const Root = ({ Wrapper, routes, store }) => (
   <BrowserRouter>
     <Provider store={ store }>
-      <App routes={ routes } />
+      <App Wrapper={ Wrapper } routes={ routes } />
     </Provider>
   </BrowserRouter>
 );

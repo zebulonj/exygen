@@ -13,7 +13,7 @@ const scripts = [
   '/bundle.js'
 ];
 
-export function reactor( routes, reducer, middleware ) {
+export function reactor( Wrapper, routes, reducer, middleware ) {
   return ( req, res, next ) => {
     const store = createStore( reducer, req.initialState, applyMiddleware( ...( ( typeof middleware === 'function' ) ? middleware( req ) : middleware ) ) );
 
@@ -35,7 +35,7 @@ export function reactor( routes, reducer, middleware ) {
         const content = ReactDOMServer.renderToString(
           <StaticRouter location={ req.url } context={ context }>
             <Provider store={ store }>
-              <App routes={ routes } />
+              <App Wrapper={ Wrapper } routes={ routes } />
             </Provider>
           </StaticRouter>
         );

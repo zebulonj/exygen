@@ -3,14 +3,25 @@ import PropTypes from 'prop-types';
 import { Route as PrimitiveRoute } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-export const App = ({ routes }) => (
-  <div className="app-container">
-    { routes.map( ( route, i ) => ( <Route key={ i } { ...route } /> ) ) }
+export const DefaultWrapper = ({ children }) => (
+  <div className="app-wrapper">
+    { children }
   </div>
 );
 
+export const App = ({ Wrapper, routes }) => (
+  <Wrapper>
+    { routes.map( ( route, i ) => ( <Route key={ i } { ...route } /> ) ) }
+  </Wrapper>
+);
+
 App.propTypes = {
+  Wrapper:  PropTypes.any.isRequired,
   routes: PropTypes.array
+};
+
+App.defaultProps = {
+  Wrapper: DefaultWrapper
 };
 
 export const NullComponent = () => (
