@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default Document;
 
 export function Document( props ) {
-  const { state, content, scripts } = props;
+  const { state, content, scripts, stylesheets } = props;
   const json = JSON.stringify( state );
 
   return (
@@ -12,6 +12,8 @@ export function Document( props ) {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+        { stylesheets && stylesheets.map( stylesheet => <link key={ stylesheet } rel="stylesheet" type="text/css" href={ stylesheet } /> )}
       </head>
       <body>
         <div id="content" dangerouslySetInnerHTML={{ __html: content || '' }}></div>
@@ -24,7 +26,8 @@ export function Document( props ) {
 }
 
 Document.propTypes = {
-  state:    PropTypes.object,
-  content:  PropTypes.string,
-  scripts:  PropTypes.array
+  state:        PropTypes.object,
+  content:      PropTypes.string,
+  scripts:      PropTypes.array,
+  stylesheets:  PropTypes.array
 };

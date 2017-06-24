@@ -19,7 +19,7 @@ const defaultOptions = {
   middleware: defaultMiddleware
 };
 
-function initialState() {
+export function initialState() {
   try {
     const state = document.getElementById( 'state' );
 

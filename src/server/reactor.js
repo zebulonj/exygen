@@ -13,6 +13,10 @@ const scripts = [
   '/bundle.js'
 ];
 
+const stylesheets = [
+  '/styles.css'
+];
+
 export function reactor( Wrapper, routes, reducer, middleware ) {
   return ( req, res, next ) => {
     const store = createStore( reducer, req.initialState, applyMiddleware( ...( ( typeof middleware === 'function' ) ? middleware( req ) : middleware ) ) );
@@ -44,7 +48,7 @@ export function reactor( Wrapper, routes, reducer, middleware ) {
           res.redirect( context.url );
         }
         else {
-          res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content: process.env.NODE_ENV === "production" ? content : '', state, scripts } ) ) );
+          res.send( "<!DOCTYPE html>\n" + ReactDOMServer.renderToStaticMarkup( React.createElement( Document, { content: process.env.NODE_ENV === "production" ? content : '', state, scripts, stylesheets } ) ) );
         }
       })
       .catch(
