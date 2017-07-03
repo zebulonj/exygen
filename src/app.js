@@ -32,7 +32,7 @@ export const NullComponent = () => (
  * Expands on the standard `Route` by exposing child routes via props.
  */
 export const Route = ({ component, fetch, routes, ...route }) => (
-  <PrimitiveRoute { ...route } render={ props => React.createElement( RouteNode, { fetch, match: props }, React.createElement( component, { ...props, fetch, routes }) ) } />
+  <PrimitiveRoute { ...route } render={ routeProps => React.createElement( RouteNode, { fetch, routeProps }, React.createElement( component, { ...routeProps, fetch, routes }) ) } />
 );
 
 Route.propTypes = {
@@ -61,8 +61,8 @@ export class RouteNodeComponent extends Component {
 
 export const RouteNode = connect(
   () => ({}),
-  ( dispatch, { fetch, match } ) => ({
-    fetch: () => ( fetch ? dispatch( fetch( match ) ) : match )
+  ( dispatch, { fetch, routeProps } ) => ({
+    fetch: () => ( fetch ? dispatch( fetch( routeProps ) ) : routeProps )
   })
 )( RouteNodeComponent );
 

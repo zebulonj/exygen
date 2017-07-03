@@ -26,7 +26,7 @@ export function reactor( Wrapper, routes, reducer, middleware ) {
       .map( route => ({ match: matchPath( req.url, route ), route }) )
       .filter( ({ match, route }) => !!match && route.fetch );
 
-    const tasks = handlers.map( ({ match, route }) => store.dispatch( route.fetch( match ) ) );
+    const tasks = handlers.map( ({ match, route }) => store.dispatch( route.fetch({ match }) ) );
 
     Promise.all( tasks )
       .then( () => {
