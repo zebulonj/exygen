@@ -10,13 +10,16 @@ const defaultOptions = {
   initialState: {},
   middleware: [
     thunk
+  ],
+  scripts: [
+    '/bundle.js'
   ]
 };
 
 export default function exygenMiddleware( options = {} ) {
   options = Object.assign({}, defaultOptions, options );
 
-  const { Wrapper, routes, reducer, middleware, assets, initialState, webpackConfig } = options;
+  const { Wrapper, routes, reducer, middleware, assets, initialState, webpackConfig, scripts } = options;
 
   const router = Router();
 
@@ -31,7 +34,7 @@ export default function exygenMiddleware( options = {} ) {
     router.use( express.static( assets ) );
   }
 
-  router.use( loadState( initialState ), reactor( Wrapper, routes, reducer, middleware ) );
+  router.use( loadState( initialState ), reactor( Wrapper, routes, reducer, middleware, scripts ) );
 
   return router;
 }

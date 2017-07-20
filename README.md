@@ -128,3 +128,12 @@ exygen init
 ```
 
 `Exygen` will install a minimal project template (directory structure and essential files) into the current working directory.
+
+## API Documentation
+
+### Server
+
+`server( options )`
+
+* **initialState**. A state initializer—object or function.
+  * If a function, receives the `express` request object.

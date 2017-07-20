@@ -9,15 +9,11 @@ import { Provider } from 'react-redux';
 import { App } from '../app';
 import Document from './document';
 
-const scripts = [
-  '/bundle.js'
-];
-
 const stylesheets = [
   '/styles.css'
 ];
 
-export function reactor( Wrapper, routes, reducer, middleware ) {
+export function reactor( Wrapper, routes, reducer, middleware, scripts ) {
   return ( req, res, next ) => {
     const store = createStore( reducer, req.initialState, applyMiddleware( ...( ( typeof middleware === 'function' ) ? middleware( req ) : middleware ) ) );
 
