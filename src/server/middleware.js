@@ -10,13 +10,16 @@ const defaultOptions = {
   ],
   scripts: [
     '/bundle.js'
+  ],
+  stylesheets: [
+    '/styles.css'
   ]
 };
 
 export default function exygenMiddleware( options = {} ) {
   options = Object.assign({}, defaultOptions, options );
 
-  const { Wrapper, routes, reducer, middleware, assets, initialState, scripts } = options;
+  const { Wrapper, routes, reducer, middleware, assets, initialState, scripts, stylesheets } = options;
 
   const router = Router();
 
@@ -24,7 +27,7 @@ export default function exygenMiddleware( options = {} ) {
     router.use( express.static( assets ) );
   }
 
-  router.use( loadState( initialState ), reactor( Wrapper, routes, reducer, middleware, scripts ) );
+  router.use( loadState( initialState ), reactor( Wrapper, routes, reducer, middleware, scripts, stylesheets ) );
 
   return router;
 }
